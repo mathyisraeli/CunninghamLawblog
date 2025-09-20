@@ -53,7 +53,7 @@ except:
         data = pickle.load(file)
 
 client = OpenAI(
-    api_key="YOUR KEY",
+    api_key="",
     base_url="https://api.groq.com/openai/v1"  # Important : redirige vers Groq
 )
 
@@ -69,5 +69,15 @@ for i in data.keys():
             data[i][j]["classified"] = ret
             with open(chemin_ret, 'wb') as handle:
                 pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
-exit()
 
+for i in data.keys():
+    cnt = [0,0,0,0,0]
+    for j in range(len(data[i])):
+        if len(data[i][j]["classified"]) > 1:
+            print("erreur classification")
+        else:
+            cnt[int(data[i][j]["classified"])-1] += 1
+    print(i, cnt)
+        
+    
+exit()
